@@ -169,3 +169,74 @@ const getData = async function() {
 }
 
 // ES9
+// object spread operator:
+const animals = {
+  tiger: 23,
+  lion: 5,
+  monkey: 2
+}
+
+const { tiger, ...rest} = animals
+// output when called in console
+tiger = 23
+rest = {lion: 5, monkey: 2}
+
+const array = [1,2,3,4,5];
+function sum (a, b, c, d, e) {
+  return a + b + c + d +e;
+}
+// calling sum function
+sum(...array);
+// console output = 15
+
+
+// finally from ES9 example:
+
+const swapiUrls = [
+  'https://swapi.co/api/people/1',
+  'https://swapi.co/api/people/2',
+  'https://swapi.co/api/people/3',
+  'https://swapi.co/api/people/4'
+]
+
+Promise.all(urls.map(url => {
+  return fetch(url).then(people => people.json())
+}))
+  .then(array => {
+    console.log('1', array[0])
+    console.log('1', array[1])
+    console.log('1', array[2])
+    console.log('1', array[3])
+  })
+  .catch(err => console.log('ughhh fix it!', err))
+  .finally(data => console.log('extra', data));
+
+  // for await of from ES9
+
+const urls = [
+  'https://jsonplaceholder.typicode.com/users',
+  'https://jsonplaceholder.typicode.com/posts',
+  'https://jsonplaceholder.typicode.com/albums'
+]
+
+const loopThroughUrls = urls => {
+  for (url of urls) {
+    console.log(url)
+  }
+}
+
+const getData2 = async function() {
+  const arrayOfPromises = urls.map(url => fetch(url));
+  for await (let request of arrayOfPromises) {
+    const data = await request.json();
+    console.log(data);
+  }
+}
+
+
+// Job Queue
+// promises are new in JavaScript and now instead of using callbacks we now
+// have a native way to handle async code and thus needed another queue
+//  Job queue (aka microtask queue) has a higher priority than the callback queue and is checked by the event loop first.
+
+
